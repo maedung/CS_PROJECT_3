@@ -1,0 +1,64 @@
+@model Activity
+
+@{
+    ViewData["Title"] = "Home Page";
+}
+
+<div class="home_header">
+    <h1>Dojo Activity Center</h1>
+    <a href="/home">Home</a>
+    <a href="/signin">Logout</a>
+</div>
+<hr>
+<div class="text-center">
+    <h1 class="display-4">Create an Activity</h1>
+    <form asp-action="AddActivity" asp-controller="Home" method="post">
+        <div class="title_date">
+            <span asp-validation-for="title"></span>
+            <div class="form-group row">
+                <label class="col-sm-4 col-form-label" asp-for="title">Title: </label>
+                <div class="col-sm-8">
+                    <input class="form-control" asp-for="title">
+                </div>
+            </div>
+
+            <span asp-validation-for="date"></span>
+            <div class="form-group row">
+                <label class="col-sm-4 col-form-label" asp-for="date">Date: </label>
+                <div class="col-sm-8">
+                    <input class="form-control" asp-for="date">
+                </div>
+            </div>
+        </div>
+        <div class="time_duration">
+            <span asp-validation-for="time"></span>
+            <div class="form-group row">
+                <label class="col-sm-4 col-form-label" asp-for="time">Time: </label>
+                <div class="col-sm-8">
+                    <input class="form-control" asp-for="time">
+                </div>
+            </div>
+
+            <span asp-validation-for="duration"></span>
+            <div class="form-group row">
+                <label class="col-sm-4 col-form-label" asp-for="duration">Duration: </label>
+                <div class="col-sm-8">
+                    <input style="Display:inline-block;" class="form-control col-sm-4" asp-for="duration">
+                    <select style="Display:inline-block;" class="form-control col-sm-7" name="duration_type" >
+                        <option value="Minutes">Minutes</option>
+                        <option value="Hours">Hours</option>
+                        <option value="Days">Days</option>
+                    </select>
+                </div>
+            </div>
+        </div>
+        <span asp-validation-for="desc"></span>
+        <div class="form-group row">
+            <label class="col-sm-4 col-form-label" asp-for="desc">Description: </label>
+            <div class="col-sm-7">
+                <textarea class="form-control" asp-for="desc"></textarea>
+            </div>
+        </div>
+        <input type="submit" value="Create Activity">
+    </form>
+</div>

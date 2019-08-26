@@ -1,0 +1,29 @@
+@model Activity
+
+@{
+    ViewData["Title"] = "Home Page";
+}
+
+<div class="home_header">
+    <h1>Dojo Activity Center</h1>
+    <a href="/home">Home</a>
+    <a href="/signin">Logout</a>
+</div>
+<hr>
+
+<h1>@Model.title</h1>
+<p>Event Coordinator: @Model.Creator.name</p>
+<p>Description: @Model.desc</p>
+
+<p>Participants:</p>
+<ul>
+    @foreach(var i in Model.PostedActivities)
+    {
+        <li>@i.User.name</li>
+    }
+</ul>
+
+@if(Model.Creator.id == ViewBag.user)
+{
+    <a href="../../delete/@Model.id">Delete this post</a>
+}

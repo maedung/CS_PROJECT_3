@@ -1,0 +1,59 @@
+@model User
+
+@{
+    ViewData["Title"] = "Home Page";
+}
+
+<div class="home_header">
+    <h1>Dojo Activity Center</h1>
+    <p>Welcome, @Model.name</p>
+    <a href="/signin">Logout</a>
+</div>
+<hr>
+<table class="table table-striped">
+    <thead>
+        <tr>
+            <th scope="col">Activity</th>
+            <th scope="col">Date and Time</th>
+            <th scope="col">Duration</th>
+            <th scope="col">Event Coordinator</th>
+            <th scope="col">No. of Participants</th>
+            <th scope="col">Actions</th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach(var activity in @ViewBag.Allactivities)
+        {
+        <tr>
+            <td><a href="/activity/@activity.id">@activity.title</a></td>
+            <td>@activity.date.Month/@activity.date.Day At @activity.time.TimeOfDay </td>
+            <td>@activity.duration</td>
+            <td>@activity.Creator.name</td>
+            <td>@activity.PostedActivities.Count</td>
+            @if(activity.Userid == Model.id)
+            {
+                <td><a href="/../delete/@activity.id">Delete</a></td>
+            }
+            else{
+                var count = 0;
+                @foreach(var i in activity.PostedActivities)
+                {
+                    @if(i.userid == Model.id)
+                    {
+                        count++;
+                    }
+                }
+                @if(count == 1)
+                {
+                    <td><a href="/../leave/@activity.id/@Model.id">Leave</a></td>
+                }
+                else{
+                    <td><a href="/../join/@activity.id/@Model.id">Join</a></td>
+                }
+            }
+        </tr>
+        }
+    </tbody>
+</table>
+
+<a class="btn btn-primary" href="/new">Add New Activity</a>

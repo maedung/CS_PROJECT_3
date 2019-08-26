@@ -25,5 +25,23 @@
 
 @if(Model.Creator.id == ViewBag.user)
 {
-    <a href="../../delete/@Model.id">Delete this post</a>
+    <a href="/../../delete/@Model.id">Delete this post</a>
+}
+else
+{
+    var count = 0;
+    @foreach(var i in Model.PostedActivities)
+    {
+        if(i.userid == ViewBag.user)
+        {
+            count ++;
+        }
+    }
+    @if(count == 1)
+    {
+        <a href="/../../leave/@Model.id/@ViewBag.user">Leave</a>
+    }
+    else{
+        <a href="/../../join/@Model.id/@ViewBag.user">Join</a>
+    }
 }

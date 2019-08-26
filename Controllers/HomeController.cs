@@ -55,6 +55,17 @@ namespace BeltTest.Controllers
             var person = dbContext.Users.Include(user => user.Posts).ThenInclude(post => post.Activity).FirstOrDefault(user => user.id == HttpContext.Session.GetInt32("userid"));
             List<Models.Activity> Allactivities = dbContext.Activities.Include(activity => activity.Creator).Include(activity => activity.PostedActivities).ThenInclude(a => a.User).ToList();
             ViewBag.Allactivities = Allactivities;
+            foreach(var i in Allactivities)
+            {
+                if(i.date.Date <= DateTime.Now.Date)
+                {
+                    if(i.time.TimeOfDay <= DateTime.Now.TimeOfDay)
+                    {
+                        dbContext.Activities.Remove(i);
+                        dbContext.SaveChanges();
+                    }
+                }
+            }
 
             return View(person);
         }
